@@ -1,0 +1,42 @@
+Léeme
+
+tablareferencias.c  (compilado tablareferencias)
+Fichero de entrada: ficheroSCH.sch Fichero común a todos los bloques en hojas jerárquicas del esquema
+(Parámetro de entrada: up o down para que ordene las hojas en cualquiera de los dos sentidos)
+
+Fichero de salida: ficheroSCH-Referencias.csv Fichero de texto que contiene los bloques colocados por columnas y cada fila contiene las referencias de las huellas equivalentes
+
+
+También genera un fichero de salida pruebaslinea que no el programa no usa. Sólo para comprobar que los componentes están ordenados por hojas jeráquicas.
+
+--Atención: si debido al funcionamiento de eeschema hay más bloques en el ficheroSCH.sch que hojas jeráquicas, hay borrar los bloques que no se necesitan (columnas de ficheroSCH-Referencias.csv) y modificar la casilla A1 con el número de bloques real.
+
+---Poner como primera columna el bloque ya colocado en pcbnew. Si no se ha colocado ninguno, colocar en primer lugar el que aparezca en la primera columna.
+---También se pueden reordenar las demás columnas para ponerlas en el orden que se quiera.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+refergemelas.c (compilado refergemelas)
+Fichero de entrada 1: ficheroPCB.kicad_pcb
+Fichero de entrada 2: ficheroSCH-Referencias.csv generado por generaref.c
+
+Fichero de salida 1: se renombra el fichero de entrada como ficheroPCB.kicad_pcbold
+Fichero de salida 2: se renombra el fichero de salida como el fichero de entrada -> ficheroPCB.kicad_pcb
+Fichero de salida 3: ficheroSCH-Relativas.csv   Fichero de coordenadas relativas de las referencias: ref posx posy angle
+		Este fichero sirve para comprobar que se ha generado bien el array y para tener el listado de todas las huellas en una sola columna ordenadas por bloques. No se usa para nada más.
+
+En el ficheroPCB.kicad_pcb resultante, las referencias de cada módulo están en sus posiciones relativas según el primer bloque.
+
+------------------------------------------------------------------------------------------------------------------------------
+		
+bloquesgemelos.c (compilado bloquesgemelos)
+Fichero de entrada 1: ficheroPCB.kicad_pcb
+Fichero de entrada 2: ficheroSCH-Referencias.csv generado por generaref.c
+
+Parámetro de entrada 3: distancia coordenada x en mm entre un módulo de un bloque y su gemelo correspondiente del siguiente bloque
+Parámetro de entrada 4: distancia coordenada y en mm entre un módulo de un bloque y su gemelo correspondiente del siguiente bloque
+
+Fichero de salida 1: se renombra el fichero de entrada como ficheroPCB.kicad_pcbold
+Fichero de salida 2: se renombra el fichero de salida como el fichero de entrada -> ficheroPCB.kicad_pcb
+Fichero de salida 3: ficheroSCH-Bloques.csv   Fichero de coordenadas absolutas de las huellas: ref posx posy angle
+		Este fichero sirve para comprobar que se ha generado bien el array y para tener el listado de todas las huellas en una sola columna ordenadas por bloques, viendo las nuevas coordenadas de las posic. No se usa para nada más.
